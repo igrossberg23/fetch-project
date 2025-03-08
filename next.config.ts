@@ -1,8 +1,18 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactStrictMode: true,
+	/* config options here */
+	reactStrictMode: true,
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'frontend-take-home.fetch.com',
+				port: '',
+				pathname: '/**',
+			},
+		],
+	},
 };
 
 export default nextConfig;
