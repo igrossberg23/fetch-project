@@ -1,10 +1,12 @@
 import { Dog } from '@/types/general';
 import {
+	AccessTime,
+	LocationOn,
+	Pets,
 	Star,
 	StarBorder,
-	StarOutline,
-	StartOutlined,
 } from '@mui/icons-material';
+import { Stack } from '@mui/material';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -18,12 +20,8 @@ export default function DogTile({ dog }: { dog: Dog }) {
 	return (
 		<div
 			className='group cursor-pointer flex flex-col bg-neutral-400 rounded-xl w-48 shadow-md hover:shadow-xl'
-			onClick={handleClick}
-		>
+			onClick={handleClick}>
 			<div className='relative flex-shrink-0 flex-grow overflow-hidden rounded-tl-xl rounded-tr-xl w-48 h-40'>
-				<div className='absolute top-2 right-2 text-amber-400 z-10 rounded-full bg-neutral-700'>
-					{isFavorite ? <Star /> : <StarBorder />}
-				</div>
 				<Image
 					src={dog.img}
 					alt={'Dog with id ' + dog.id}
@@ -32,16 +30,36 @@ export default function DogTile({ dog }: { dog: Dog }) {
 					sizes={'200px'}
 				/>
 			</div>
-			<div className='flex flex-col p-2'>
-				<div className='flex justify-between'>
+			<div className='flex flex-col p-4 gap-2'>
+				<Stack direction='row'>
 					<div className='text-xl font-bold'>{dog.name}</div>
-					<div className='text-sm italic'>{dog.age} years old</div>
-				</div>
-				<div className='text-xs italic uppercase'>{dog.breed}</div>
-				<div>
-					<span>Zip Code: </span>
-					{dog.zip_code}
-				</div>
+					{isFavorite && <Star className='text-amber-400' />}
+					{!isFavorite && (
+						<StarBorder className='opacity-0 text-amber-400 group-hover:opacity-100' />
+					)}
+				</Stack>
+				<Stack
+					direction='column'
+					gap={1}>
+					<Stack
+						direction='row'
+						gap={1}>
+						<AccessTime />
+						<p>{dog.age} years</p>
+					</Stack>
+					<Stack
+						direction='row'
+						gap={1}>
+						<Pets />
+						<p>{dog.breed}</p>
+					</Stack>
+					<Stack
+						direction='row'
+						gap={1}>
+						<LocationOn />
+						<p>{dog.zip_code}</p>
+					</Stack>
+				</Stack>
 			</div>
 		</div>
 	);
