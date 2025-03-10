@@ -28,12 +28,13 @@ export default function Layout({
 			</Head>
 			<div
 				id='wrapper'
-				className={`flex min-h-screen flex-col gap-4${className}`}
-			>
+				className={`flex min-h-screen flex-col gap-4${className}`}>
 				<Header />
-				<main className='flex flex-grow flex-col items-center justify-between py-4 px-8'>
+				<Container
+					component='main'
+					className='flex flex-grow flex-col items-center justify-between py-4 px-8 w-full'>
 					{children}
-				</main>
+				</Container>
 				<Footer />
 			</div>
 		</div>
