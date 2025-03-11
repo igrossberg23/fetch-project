@@ -1,6 +1,5 @@
 import { Container } from '@mui/material';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -11,8 +10,6 @@ export default function Layout({
 	children: React.ReactNode;
 	className?: string;
 }) {
-	const { pathname }: { pathname: string } = useRouter();
-
 	return (
 		<div>
 			<Head>

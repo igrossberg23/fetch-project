@@ -6,7 +6,7 @@ import LoginModal from '../LoginModal';
 import LogoutModal from '../LogoutModal';
 
 export default function AuthStatus() {
-	const { isAuthenticated, name, email } = useContext(AuthContext);
+	const { isAuthenticated } = useContext(AuthContext);
 
 	const [showLoginModal, setShowLoginModal] = useState(false);
 	const [showLogoutModal, setShowLogoutModal] = useState(false);

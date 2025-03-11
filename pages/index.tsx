@@ -17,6 +17,8 @@ import {
 } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 
+const BASE_SEARCH_URL = '/dogs/search?size=25&from=0';
+
 export default function Search() {
 	const [allBreeds, setAllBreeds] = useState<string[]>([]);
 	const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
@@ -25,7 +27,6 @@ export default function Search() {
 	const [favorites, setFavorites] = useState<string[]>([]);
 	const [match, setMatch] = useState<Dog>();
 
-	const [searchUrl, setSearchUrl] = useState('/dogs/search?size=25&from=0');
 	const [nextUrl, setNextUrl] = useState('');
 	const [prevUrl, setPrevUrl] = useState('');
 	const [isAscending, setIsAscending] = useState(true);
@@ -35,24 +36,15 @@ export default function Search() {
 	const [fromValue, setFromValue] = useState(0);
 
 	const [matchLoading, setMatchLoading] = useState(false);
-	const [dogSearchLoading, setDogSearchLoading] = useState(false);
 
 	const { alert } = useContext(SnackContext);
-	const { isAuthenticated, name, email } = useContext(AuthContext);
+	const { isAuthenticated, name } = useContext(AuthContext);
 
 	useEffect(() => {
 		if (!isAuthenticated) return;
 		fetchBreeds();
 		fetchDogs();
 	}, [isAuthenticated]);
-
-	useEffect(() => {
-		if (!searchUrl) return;
-
-		const match = searchUrl.match(/[?&]from=(\d+)/);
-		const fromValue = match?.at(1);
-		setFromValue(fromValue ? Number(fromValue) : 0);
-	}, [searchUrl]);
 
 	const fetchBreeds = async () => {
 		try {
@@ -71,12 +63,8 @@ export default function Search() {
 			params.append('ageMax', `${ageRange[1]}`);
 			selectedBreeds.forEach((b) => params.append('breeds', b));
 
-			const fullUrl = overrideUrl ?? searchUrl + '&' + params.toString();
-
-			console.log(fullUrl);
-
+			const fullUrl = overrideUrl ?? BASE_SEARCH_URL + '&' + params.toString();
 			const searchRes = await dogApi.get(fullUrl);
-			console.log(searchRes.data);
 
 			const match = fullUrl.match(/[?&]from=(\d+)/);
 			const fromValue = match?.at(1);
@@ -99,11 +87,7 @@ export default function Search() {
 		}
 	};
 
-	const handleSliderChange = (
-		event: Event,
-		newValue: number | number[],
-		activeThumb: number
-	) => {
+	const handleSliderChange = (event: Event, newValue: number | number[]) => {
 		if (!Array.isArray(newValue)) {
 			return;
 		}
