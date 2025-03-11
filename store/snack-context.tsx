@@ -49,25 +49,22 @@ export default function SnackContextProvider({
 	return (
 		<>
 			<SnackContext.Provider
-				value={{ setSnackState, alert, clearSnackLog, snackLog }}
-			>
+				value={{ setSnackState, alert, clearSnackLog, snackLog }}>
 				{children}
 			</SnackContext.Provider>
 			<Snackbar
 				open={snackState.open}
 				autoHideDuration={6000}
 				onClose={closeSnack}
-				anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 				action={
 					<IconButton onClick={closeSnack}>
 						<Close />
 					</IconButton>
-				}
-			>
+				}>
 				<Alert
 					onClose={closeSnack}
-					severity={snackState.severity as AlertColor}
-				>
+					severity={snackState.severity as AlertColor}>
 					{snackState.message}
 				</Alert>
 			</Snackbar>

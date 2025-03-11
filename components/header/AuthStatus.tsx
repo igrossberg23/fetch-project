@@ -14,12 +14,6 @@ export default function AuthStatus() {
 	return (
 		<>
 			<div className='flex gap-2'>
-				{isAuthenticated && (
-					<div>
-						<p className='text-xl'>Welcome, {name}</p>
-						<p className='italic text-xs'>{email}</p>
-					</div>
-				)}
 				{isAuthenticated ? (
 					<Tooltip
 						title='logout'

@@ -8,19 +8,22 @@ import {
 } from '@mui/icons-material';
 import { Stack } from '@mui/material';
 import Image from 'next/image';
-import { useState } from 'react';
 
-export default function DogTile({ dog }: { dog: Dog }) {
-	const [isFavorite, setIsFavorite] = useState(false);
+export interface DogTileProps {
+	dog: Dog;
+	isFavorite: boolean;
+	toggleFavorite: (id: string) => void;
+}
 
-	const handleClick = () => {
-		setIsFavorite((prev) => !prev);
-	};
-
+export default function DogTile({
+	dog,
+	isFavorite,
+	toggleFavorite,
+}: DogTileProps) {
 	return (
 		<div
 			className='group cursor-pointer flex flex-col bg-neutral-400 rounded-xl w-48 shadow-md hover:shadow-xl'
-			onClick={handleClick}>
+			onClick={() => toggleFavorite(dog.id)}>
 			<div className='relative flex-shrink-0 flex-grow overflow-hidden rounded-tl-xl rounded-tr-xl w-48 h-40'>
 				<Image
 					src={dog.img}
@@ -45,7 +48,7 @@ export default function DogTile({ dog }: { dog: Dog }) {
 						direction='row'
 						gap={1}>
 						<AccessTime />
-						<p>{dog.age} years</p>
+						<p>{dog.age} years old</p>
 					</Stack>
 					<Stack
 						direction='row'

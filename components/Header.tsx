@@ -11,7 +11,9 @@ export default function Header() {
 					width='100'
 					height='50'
 				/>
-				<h1 className='text-4xl'>Furry Friend Finder</h1>
+				<p className='text-2xl md:text-4xl text-center font-bold'>
+					Furry Friend Finder
+				</p>
 				<AuthStatus />
 			</div>
 		</>
